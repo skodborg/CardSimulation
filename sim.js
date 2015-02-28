@@ -23,9 +23,14 @@
 // games won as a percentage of games played, with a randomly shuffled
 // deck
 
-function init() { var el = document.createElement("h1");
-                  el.id="title"; el.innerHTML = "Output";
-                  document.body.appendChild(el); }
+function init() { 
+    var el = document.createElement("h1");
+    el.id="title"; el.innerHTML = "Output";
+    document.body.appendChild(el); 
+    play();
+}
+
+
 
 
 // ENUMS
@@ -48,16 +53,22 @@ function Card(rank, suit) {
 
 var cardsArray = [];
 
+function play() {
+    // reset the deck
+    cardsArray = [];
 
-// fill in all 52 cards into the cardsArray
-for (var r in RANK) {
-    for (var s in SUIT) {
-        cardsArray.push(new Card(r, s));
+    // fill in all 52 cards into the cardsArray
+    for (var r in RANK) {
+        for (var s in SUIT) {
+            cardsArray.push(new Card(r, s));
+        }
     }
+
+    shuffle(cardsArray);
 }
 
 
-// shuffle deck
+// shuffles array, randomizing the order of contained elements
 function shuffle(array) {
     var counter = array.length, temp, index;
 
@@ -78,4 +89,4 @@ function shuffle(array) {
     return array;
 }
 
-shuffle(cardsArray);
+
