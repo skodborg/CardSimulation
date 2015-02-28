@@ -26,3 +26,24 @@
 function init() { var el = document.createElement("h1");
                   el.id="title"; el.innerHTML = "Output";
                   document.body.appendChild(el); }
+
+
+// ENUMS
+var RANK = Object.freeze({"A" : 1, "2" : 2, "3" : 3, "4" : 4, "5" : 5,
+                          "6" : 6, "7" : 7, "8" : 8, "9" : 9, "10" :
+                          10, "J" : 11, "Q" : 12, "K" : 13});
+
+var SUIT = Object.freeze({"h" : "heart", 
+                          "s" : "spade", 
+                          "c" : "clubs",
+                          "d" : "diamond"});
+
+
+// 'Card'-object constructor
+function Card(rank, suit) {
+    this.rank = rank;
+    this.suit = suit;
+    this.toString = function() { return rank + suit };
+}
+
+var cardsArray = [];
