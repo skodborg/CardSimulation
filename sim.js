@@ -47,3 +47,11 @@ function Card(rank, suit) {
 }
 
 var cardsArray = [];
+
+
+// fill in all 52 cards into the cardsArray
+for (var r in RANK) {
+    for (var s in SUIT) {
+        cardsArray.push(new Card(r, s));
+    }
+}
