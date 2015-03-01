@@ -70,13 +70,23 @@ function play() {
 
 function act() {
 
-    // .. draw cards and do rule checks
-
-    var drawnCard = shuffledCardsDeck.pop();
-    drawnCards.push(drawnCard);
+    // draw card
+    drawnCards.push(shuffledCardsDeck.pop());
 
     // cannot act on any rule with less than 4 visible cards
     if (drawnCards.length < 4) { return; }
+
+    // check for same rank on card 1 and 4 from the top of the drawn cards
+    // - if ranks are equal, remove cards 1 to 4
+    // - if suits are equal, remove cards 2 and 3
+    var firstCard = drawnCards[0];
+    var fourthCard = drawnCards[3];
+    if (firstCard.rank == fourthCard.rank) {
+	drawnCards.splice(0, 4);
+    }
+    else if (firstCard.suit == fourthCard.suit) {
+	drawnCards.splice(1, 2);
+    }
 }
 
 
