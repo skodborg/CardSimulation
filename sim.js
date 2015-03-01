@@ -24,23 +24,12 @@
 // deck
 
 function init() { 
-    var el = document.createElement("h1");
-    el.id="title"; el.innerHTML = "Output";
-    document.body.appendChild(el); 
 
-    var results = 0;
-    var counter = 0;
-    for (var i = 0; i < 100000; i++) {
-        counter++;
-        result = play();
-        if (result) { results++; }
-    }
-    console.log("counter: " + counter);
-    console.log("results: " + results);
-    console.log("percentage: " + (results / counter * 100));
+    results = 0;
+    counter = 0;
+
+    play();
 }
-
-
 
 
 // ENUMS
@@ -74,6 +63,8 @@ var shuffledCardsDeck = [];
 var drawnCards = [];
 
 function play() {
+    counter++;
+
     initializeDecks();
 
     var temp_deck = shuffledCardsDeck.slice();
@@ -83,11 +74,19 @@ function play() {
     }
 
     if (drawnCards.length == 0) {
-        console.log("SUCCESS");
         printArrayOfCards(temp_deck);
-        return true;
+        results++;
     }
-    return false;
+
+    drawOutput();
+
+    setTimeout(play, 1);
+}
+
+function drawOutput() {
+    document.getElementById("c_div").innerHTML = counter;
+    document.getElementById("r_div").innerHTML = results;
+    document.getElementById("wp_div").innerHTML = (results / counter) * 100 + "%";
 }
 
 
