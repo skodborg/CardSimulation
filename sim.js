@@ -27,7 +27,13 @@ function init() {
     var el = document.createElement("h1");
     el.id="title"; el.innerHTML = "Output";
     document.body.appendChild(el); 
-    play();
+    var result = false;
+    var counter = 0;
+    while (!result) {
+	counter++;
+	result = play();
+    }
+    console.log("counter: " + counter);
 }
 
 
@@ -43,10 +49,14 @@ var SUIT = Object.freeze({"h":"h", "s":"s", "c":"c", "d":"d"});
 var TEST_DECK;
 
 // comment the below initialization to use a normal deck with 52 cards
-TEST_DECK = [new Card(RANK.A, SUIT.s),
-             new Card(RANK[2], SUIT.h),
-             new Card(RANK[3], SUIT.d),
-             new Card(RANK[4], SUIT.s)];
+// TEST_DECK = [new Card(RANK[4], SUIT.s),
+//              new Card(RANK[7], SUIT.s),
+//              new Card(RANK[2], SUIT.h),
+//              new Card(RANK[2], SUIT.h),
+//              new Card(RANK[2], SUIT.h),
+//              new Card(RANK[2], SUIT.h),
+//              new Card(RANK[3], SUIT.d),
+//              new Card(RANK[4], SUIT.s)];
 
 
 // 'Card'-object constructor
@@ -62,9 +72,18 @@ var drawnCards = [];
 function play() {
     initializeDecks();
 
+    var temp_deck = shuffledCardsDeck.slice();
+
     while (shuffledCardsDeck.length > 0) {
         act();
     }
+
+    if (drawnCards.length == 0) {
+	console.log("SUCCESS");
+	printArrayOfCards(temp_deck);
+	return true;
+    }
+    return false;
 }
 
 
@@ -79,13 +98,15 @@ function act() {
     // check for same rank on card 1 and 4 from the top of the drawn cards
     // - if ranks are equal, remove cards 1 to 4
     // - if suits are equal, remove cards 2 and 3
-    var firstCard = drawnCards[0];
-    var fourthCard = drawnCards[3];
+    var firstCardIndex = drawnCards.length - 1;
+    var fourthCardIndex = drawnCards.length - 4;
+    var firstCard = drawnCards[firstCardIndex];
+    var fourthCard = drawnCards[fourthCardIndex];
     if (firstCard.rank == fourthCard.rank) {
-	drawnCards.splice(0, 4);
+        drawnCards.splice(fourthCardIndex, 4);
     }
     else if (firstCard.suit == fourthCard.suit) {
-	drawnCards.splice(1, 2);
+        drawnCards.splice(fourthCardIndex+1, 2);
     }
 }
 
