@@ -61,8 +61,17 @@ var cardsArray = [];
 
 function play() {
     initializeDeck();
-    
+
+    while (cardsArray.length > 0) {
+	act();
+    }
     // .. draw cards and do rule checks
+
+}
+
+
+function act() {
+    cardsArray.pop();
 }
 
 
