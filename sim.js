@@ -27,13 +27,17 @@ function init() {
     var el = document.createElement("h1");
     el.id="title"; el.innerHTML = "Output";
     document.body.appendChild(el); 
-    var result = false;
+
+    var results = 0;
     var counter = 0;
-    while (!result) {
-	counter++;
-	result = play();
+    for (var i = 0; i < 100000; i++) {
+        counter++;
+        result = play();
+        if (result) { results++; }
     }
     console.log("counter: " + counter);
+    console.log("results: " + results);
+    console.log("percentage: " + (results / 10000 * 100));
 }
 
 
@@ -79,9 +83,9 @@ function play() {
     }
 
     if (drawnCards.length == 0) {
-	console.log("SUCCESS");
-	printArrayOfCards(temp_deck);
-	return true;
+        console.log("SUCCESS");
+        printArrayOfCards(temp_deck);
+        return true;
     }
     return false;
 }
