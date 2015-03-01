@@ -57,25 +57,33 @@ function Card(rank, suit) {
 }
 
 var shuffledCardsDeck = [];
-
+var drawnCards = [];
 
 function play() {
-    initializeDeck();
+    initializeDecks();
 
     while (shuffledCardsDeck.length > 0) {
-	act();
+        act();
     }
-    // .. draw cards and do rule checks
-
 }
 
 
 function act() {
-    shuffledCardsDeck.pop();
+
+    // .. draw cards and do rule checks
+
+    var drawnCard = shuffledCardsDeck.pop();
+    drawnCards.push(drawnCard);
+
+    // cannot act on any rule with less than 4 visible cards
+    if (drawnCards.length < 4) { return; }
 }
 
 
-function initializeDeck() {
+function initializeDecks() {
+    // empty list of cards drawn
+    drawnCards = [];
+
     if (TEST_DECK != undefined) {
         // use test-deck if defined
         shuffledCardsDeck = TEST_DECK;
@@ -92,8 +100,6 @@ function initializeDeck() {
         // randomize order of cards
         shuffle(shuffledCardsDeck);
     }
-
-    printArrayOfCards(shuffledCardsDeck);
 }
 
 
