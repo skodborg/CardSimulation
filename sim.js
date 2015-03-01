@@ -34,14 +34,19 @@ function init() {
 
 
 // ENUMS
-var RANK = Object.freeze({"A" : 1, "2" : 2, "3" : 3, "4" : 4, "5" : 5,
-                          "6" : 6, "7" : 7, "8" : 8, "9" : 9, "10" :
-                          10, "J" : 11, "Q" : 12, "K" : 13});
+var RANK = Object.freeze({"A":"A", "2":"2", "3":"3", "4":"4", "5":"5",
+                          "6":"6", "7":"7", "8":"8", "9":"9",
+                          "10":"10", "J":"J", "Q":"Q", "K":"K"});
 
-var SUIT = Object.freeze({"h" : "heart", 
-                          "s" : "spade", 
-                          "c" : "clubs",
-                          "d" : "diamond"});
+var SUIT = Object.freeze({"h":"h", "s":"s", "c":"c", "d":"d"});
+
+var TEST_DECK;
+
+// comment the below initialization to use a normal deck with 52 cards
+TEST_DECK = [new Card(RANK.A, SUIT.s),
+             new Card(RANK[2], SUIT.h),
+             new Card(RANK[3], SUIT.d),
+             new Card(RANK[4], SUIT.s)];
 
 
 // 'Card'-object constructor
@@ -53,18 +58,33 @@ function Card(rank, suit) {
 
 var cardsArray = [];
 
-function play() {
-    // reset the deck
-    cardsArray = [];
 
-    // fill in all 52 cards into the cardsArray
-    for (var r in RANK) {
-        for (var s in SUIT) {
-            cardsArray.push(new Card(r, s));
+function play() {
+    initializeDeck();
+    
+    // .. draw cards and do rule checks
+}
+
+
+function initializeDeck() {
+    if (TEST_DECK != undefined) {
+        // use test-deck if defined
+        cardsArray = TEST_DECK;
+    } else {
+        // reset the deck
+        cardsArray = [];
+
+        // fill in all 52 cards into the cardsArray
+        for (var r in RANK) {
+            for (var s in SUIT) {
+                cardsArray.push(new Card(r, s));
+            }
         }
+        // randomize order of cards
+        shuffle(cardsArray);
     }
 
-    shuffle(cardsArray);
+    printArrayOfCards(cardsArray);
 }
 
 
@@ -93,7 +113,7 @@ function shuffle(array) {
 function printArrayOfCards(array) {
     var result = "";
     for (var i = 0; i < array.length; i++) {
-	result += array[i].toString() + " ";
+        result += array[i].toString() + " ";
     }
     console.log(result);
 }
