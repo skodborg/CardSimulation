@@ -56,13 +56,13 @@ function Card(rank, suit) {
     this.toString = function() { return rank + suit };
 }
 
-var cardsArray = [];
+var shuffledCardsDeck = [];
 
 
 function play() {
     initializeDeck();
 
-    while (cardsArray.length > 0) {
+    while (shuffledCardsDeck.length > 0) {
 	act();
     }
     // .. draw cards and do rule checks
@@ -71,29 +71,29 @@ function play() {
 
 
 function act() {
-    cardsArray.pop();
+    shuffledCardsDeck.pop();
 }
 
 
 function initializeDeck() {
     if (TEST_DECK != undefined) {
         // use test-deck if defined
-        cardsArray = TEST_DECK;
+        shuffledCardsDeck = TEST_DECK;
     } else {
         // reset the deck
-        cardsArray = [];
+        shuffledCardsDeck = [];
 
-        // fill in all 52 cards into the cardsArray
+        // fill in all 52 cards into the shuffledCardsDeck
         for (var r in RANK) {
             for (var s in SUIT) {
-                cardsArray.push(new Card(r, s));
+                shuffledCardsDeck.push(new Card(r, s));
             }
         }
         // randomize order of cards
-        shuffle(cardsArray);
+        shuffle(shuffledCardsDeck);
     }
 
-    printArrayOfCards(cardsArray);
+    printArrayOfCards(shuffledCardsDeck);
 }
 
 
