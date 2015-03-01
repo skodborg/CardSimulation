@@ -37,7 +37,7 @@ function init() {
     }
     console.log("counter: " + counter);
     console.log("results: " + results);
-    console.log("percentage: " + (results / 10000 * 100));
+    console.log("percentage: " + (results / counter * 100));
 }
 
 
