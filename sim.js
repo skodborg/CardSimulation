@@ -28,6 +28,7 @@ function init() {
     results = 0;
     counter = 0;
 
+    drawOutput();
     play();
 }
 
@@ -63,22 +64,25 @@ var shuffledCardsDeck = [];
 var drawnCards = [];
 
 function play() {
-    counter++;
 
-    initializeDecks();
+    for (var i = 0; i < 100000; i++) {
+        counter++;
 
-    var temp_deck = shuffledCardsDeck.slice();
+        initializeDecks();
 
-    while (shuffledCardsDeck.length > 0) {
-        act();
+        var temp_deck = shuffledCardsDeck.slice();
+
+        while (shuffledCardsDeck.length > 0) {
+            act();
+        }
+
+        if (drawnCards.length == 0) {
+            printArrayOfCards(temp_deck);
+            results++;
+        }
+
     }
-
-    if (drawnCards.length == 0) {
-        printArrayOfCards(temp_deck);
-        results++;
-    }
-
-    drawOutput();
+    // drawOutput();
 
     setTimeout(play, 1);
 }
@@ -87,6 +91,8 @@ function drawOutput() {
     document.getElementById("c_div").innerHTML = counter;
     document.getElementById("r_div").innerHTML = results;
     document.getElementById("wp_div").innerHTML = (results / counter) * 100 + "%";
+
+    setTimeout(drawOutput, 1000);
 }
 
 
